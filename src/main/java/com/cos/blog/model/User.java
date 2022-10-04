@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -19,14 +19,19 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(nullable = false, length = 100, unique = true)
     private String username;
+
     @Column(nullable = false, length = 100)
     private String password;
+
     @Column(nullable = false, length = 50)
     private String email;
-    @ColumnDefault("'user'")
-    private String role;
+
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+
     @CreationTimestamp
     private Timestamp createDate;
 }
