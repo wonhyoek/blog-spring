@@ -1,3 +1,4 @@
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,14 +19,21 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/blog/user/loginForm">로그인</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/blog/user/joinForm">회원가입</a>
-      </li>
-    </ul>
+    <c:choose>
+    				<c:when test="${empty principal}">
+    					<ul class="navbar-nav">
+    						<li class="nav-item"><a class="nav-link" href="/blog/user/loginForm">로그인</a></li>
+    						<li class="nav-item"><a class="nav-link" href="/blog/user/joinForm">회원가입</a></li>
+    					</ul>
+    				</c:when>
+    				<c:otherwise>
+    					<ul class="navbar-nav">
+    						<li class="nav-item"><a class="nav-link" href="/board/saveForm">글쓰기</a></li>
+    						<li class="nav-item"><a class="nav-link" href="/user/updateForm">회원정보</a></li>
+    						<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
+    					</ul>
+    				</c:otherwise>
+    			</c:choose>
   </div>
 </nav>
 <br>
