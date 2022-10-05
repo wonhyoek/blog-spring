@@ -19,7 +19,7 @@ let index = {
 
 			$.ajax({
 				type: "POST",
-				url: "/auth/joinProc",
+				url: "/blog/api/user",
 				data: JSON.stringify(data),
 				contentType: "application/json; charset=utf-8",
 				dataType: "json"
@@ -28,7 +28,7 @@ let index = {
 					alert("회원가입에 실패하였습니다.");
 				}else{
 					alert("회원가입이 완료되었습니다.");
-					location.href = "/";
+					location.href = "/blog";
 				}
 
 			}).fail(function(error){
