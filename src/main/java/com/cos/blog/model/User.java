@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -31,6 +30,8 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
+
+    private String oauth;
 
     @CreationTimestamp
     private Timestamp createDate;

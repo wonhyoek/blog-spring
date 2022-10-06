@@ -25,4 +25,20 @@ public class UserService {
         user.setRoleType(RoleType.USER);
         return userRepository.save(user);
     }
+
+    @Transactional
+    public void 회원수정(User user) {
+
+        User persistance = userRepository.findById(user.getId()).orElseThrow(()->{
+            return new IllegalArgumentException("회원 찾기 실패");
+        });
+
+
+        if(persistance.getOauth() == null || persistance.getOauth().equals("")) {
+            String rawPassword = user.getPassword();
+            String encPassword = encoder.encode(rawPassword);
+            persistance.setPassword(encPassword);
+            persistance.setEmail(user.getEmail());
+        }
+    }
 }
