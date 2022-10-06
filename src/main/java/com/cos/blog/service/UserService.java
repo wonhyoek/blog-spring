@@ -41,4 +41,11 @@ public class UserService {
             persistance.setEmail(user.getEmail());
         }
     }
+    @Transactional(readOnly = true)
+    public User 회원찾기(String username) {
+        User user = userRepository.findByUsername(username).orElseGet(()->{
+            return new User();
+        });
+        return user;
+    }
 }
