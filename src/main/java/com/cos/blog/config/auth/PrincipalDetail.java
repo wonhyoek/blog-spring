@@ -2,6 +2,7 @@ package com.cos.blog.config.auth;
 
 import com.cos.blog.model.User;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @AllArgsConstructor
+@Getter
 public class PrincipalDetail implements UserDetails {
     private User user;
 
