@@ -25,4 +25,12 @@ public class UserService {
         user.setRoleType(RoleType.USER);
         return userRepository.save(user);
     }
+
+    @Transactional(readOnly = true)
+    public User 회원찾기(String username) {
+        User user = userRepository.findByUsername(username).orElseGet(()->{
+            return new User();
+        });
+        return user;
+    }
 }

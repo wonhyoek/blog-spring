@@ -32,6 +32,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
 
+    private String oauth;
+
     @CreationTimestamp
     private Timestamp createDate;
 }
