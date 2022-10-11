@@ -1,0 +1,23 @@
+version: "3"
+services:
+  database:
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: blog
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: test1234
+
+    ports:
+      - 3306:3306
+    restart: always
+  application:
+    build: .
+    depends_on:
+      - database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/blog
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: test1234
+    restart: always
+    ports:
+      - 8000:8000
