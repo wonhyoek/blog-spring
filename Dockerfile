@@ -1,4 +1,8 @@
-FROM openjdk:8-jdk-alpine
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM maven:3.8.6-openjdk-18
+
+WORKDIR /usr/src/app
+
+ADD ./ ./
+
+ENTRYPOINT ["java","-jar","target/blog-0.0.1-SNAPSHOT.jar"]
+
