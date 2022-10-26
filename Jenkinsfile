@@ -8,7 +8,7 @@ pipeline {
         stage('Init') {
             steps {
                 echo 'clear'
-                DOCKER_CONTAINERS = sh (
+                def DOCKER_CONTAINERS = sh (
                     script: 'docker ps -aq',
                     returnStdout: true
                 )
