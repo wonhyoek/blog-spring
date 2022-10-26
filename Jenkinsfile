@@ -13,8 +13,8 @@ pipeline {
                                         script: 'docker ps -aq',
                                         returnStdout: true
                                     )
+                    echo "$DOCKER_CONTAINERS"
                 }
-                echo "$DOCKER_CONTAINERS"
                 sh 'docker stop `docker ps -aq`'
                 sh 'docker rm $(docker ps -aq)'
                 deleteDir()
