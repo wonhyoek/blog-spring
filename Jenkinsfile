@@ -12,7 +12,7 @@ pipeline {
         stage('Init') {
             steps {
                 echo 'clear'
-                sh 'docker-compose down'
+                sh 'sudo docker-compose down'
                 sh 'sudo docker rm $(docker ps -aq)'
                 deleteDir()
             }
@@ -35,13 +35,13 @@ pipeline {
 
         stage('build docker-compose') {
             steps {
-                sh "docker-compose build"
+                sh "sudo docker-compose build"
             }
         }
 
         stage('deploy') {
             steps {
-                sh "docker-compose up"
+                sh "sudo docker-compose up"
             }
         }
     }
