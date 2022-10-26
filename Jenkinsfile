@@ -1,3 +1,5 @@
+/**
+
 pipeline {
     agent any
     options {
@@ -49,3 +51,5 @@ pipeline {
         }
     }
 }
+
+*/
