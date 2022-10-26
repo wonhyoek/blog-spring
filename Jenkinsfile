@@ -8,6 +8,11 @@ pipeline {
         stage('Init') {
             steps {
                 echo 'clear'
+                DOCKER_CONTAINERS = sh (
+                    script: 'docker ps -aq',
+                    returnStdout: true
+                )
+                echo DOCKER_CONTAINERS
                 sh 'docker stop `docker ps -aq`'
                 sh 'docker rm $(docker ps -aq)'
                 deleteDir()
