@@ -1,5 +1,3 @@
-/**
-
 pipeline {
     agent any
     options {
@@ -10,26 +8,9 @@ pipeline {
         stage('Init') {
             steps {
                 echo 'clear'
-                script {
-                    DOCKER_CONTAINERS = sh (
-                                        script: 'docker ps -aq',
-                                        returnStdout: true
-                                    )
-                    echo "$DOCKER_CONTAINERS"
-                }
-                sh 'docker stop `docker ps -aq`'
+                sh 'docker-compose down'
                 sh 'docker rm $(docker ps -aq)'
-                deleteDir()
             }
-        }
-
-        stage('clone') {
-                    steps {
-                        git url: "$SOURCE_CODE_URL",
-                            branch: "$RELEASE_BRANCH",
-                            credentialsId: "$SOURCECODE_JENKINS_CREDENTIAL_ID"
-                        sh "ls -al"
-                    }
         }
 
         stage('build blog-spring') {
@@ -51,5 +32,3 @@ pipeline {
         }
     }
 }
-
-*/
