@@ -9,7 +9,8 @@ pipeline {
             steps {
                 echo 'clear'
                 sh 'docker-compose down'
-                sh 'docker rm $(docker ps -aq)'
+                sh 'docker container prune -y'
+                sh 'docker image prune -a -y'
             }
         }
 
