@@ -1,5 +1,6 @@
 package com.cos.blog.service;
 
+import com.cos.blog.dto.BoardListWrapperDTO;
 import com.cos.blog.dto.saveReplyDto.saveReplyReqDto;
 import com.cos.blog.dto.saveBoardDTO.SaveBoardReqDTO;
 import com.cos.blog.dto.boardResDTO;
@@ -35,8 +36,13 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Board> 글목록(Pageable pageable){
-        return boardRepository.findAll(pageable);
+    public BoardListWrapperDTO 글목록(Pageable pageable){
+
+        Page<Board> boardsPS = boardRepository.findAll(pageable);
+        BoardListWrapperDTO boardListWrapperDTO = new BoardListWrapperDTO();
+        boardListWrapperDTO.setItems(boardsPS);
+
+        return boardListWrapperDTO;
     }
 
     @Transactional(readOnly = true)
