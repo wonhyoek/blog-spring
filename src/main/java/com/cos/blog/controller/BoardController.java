@@ -1,6 +1,7 @@
 package com.cos.blog.controller;
 
 import com.cos.blog.config.auth.PrincipalDetail;
+import com.cos.blog.dto.BoardResDTO;
 import com.cos.blog.model.Board;
 import com.cos.blog.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,8 @@ public class BoardController {
 
     @GetMapping("/board/{id}")
     public String findById(@PathVariable int id, Model model) {
-        Board board = boardService.글상세보기(id);
-        model.addAttribute("board", board);
+        BoardResDTO resDTO = boardService.글상세보기(id);
+        model.addAttribute("board", resDTO);
 
         return "board/detail";
     }

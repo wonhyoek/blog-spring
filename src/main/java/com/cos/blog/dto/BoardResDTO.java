@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class boardResDTO {
+public class BoardResDTO {
     private int id;
     private String title;
     private String content;
