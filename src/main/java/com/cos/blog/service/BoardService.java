@@ -1,6 +1,8 @@
 package com.cos.blog.service;
 
 import com.cos.blog.dto.ReplySaveRequestDto;
+import com.cos.blog.dto.saveBoardDTO.SaveBoardReqDTO;
+import com.cos.blog.dto.saveBoardDTO.SaveBoardResDTO;
 import com.cos.blog.model.Board;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.BoardRepository;
@@ -22,10 +24,17 @@ public class BoardService {
     private final ReplyRepository replyRepository;
 
     @Transactional
-    public void 글쓰기(Board board, User user) { // title, content
+    public SaveBoardResDTO 글쓰기(SaveBoardReqDTO reqDTO, User user) {
+        Board board = Board.builder()
+                .title(reqDTO.getTitle())
+                .content(reqDTO.getContent())
+                .build();
         board.setCount(0);
         board.setUser(user);
-        boardRepository.save(board);
+
+        Board boardPS = boardRepository.save(board);
+
+        return boardPS.toSaveDTO();
     }
 
     @Transactional(readOnly = true)
