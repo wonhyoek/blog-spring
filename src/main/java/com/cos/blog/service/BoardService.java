@@ -1,20 +1,17 @@
 package com.cos.blog.service;
 
-import com.cos.blog.dto.ReplySaveRequestDto;
+import com.cos.blog.dto.saveReplyDto.saveReplyReqDto;
 import com.cos.blog.dto.saveBoardDTO.SaveBoardReqDTO;
-import com.cos.blog.dto.saveBoardDTO.SaveBoardResDTO;
+import com.cos.blog.dto.boardResDTO;
 import com.cos.blog.model.Board;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.BoardRepository;
 import com.cos.blog.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 
 @Service
@@ -24,7 +21,7 @@ public class BoardService {
     private final ReplyRepository replyRepository;
 
     @Transactional
-    public SaveBoardResDTO 글쓰기(SaveBoardReqDTO reqDTO, User user) {
+    public boardResDTO 글쓰기(SaveBoardReqDTO reqDTO, User user) {
         Board board = Board.builder()
                 .title(reqDTO.getTitle())
                 .content(reqDTO.getContent())
@@ -67,7 +64,7 @@ public class BoardService {
     }
 
     @Transactional
-    public void 댓글쓰기(ReplySaveRequestDto replySaveRequestDto) {
+    public void 댓글쓰기(saveReplyReqDto replySaveRequestDto) {
         int result = replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
         System.out.println("BoardService : "+result);
     }

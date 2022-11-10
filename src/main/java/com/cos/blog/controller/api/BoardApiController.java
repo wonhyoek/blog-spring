@@ -1,7 +1,7 @@
 package com.cos.blog.controller.api;
 
 import com.cos.blog.config.auth.PrincipalDetail;
-import com.cos.blog.dto.ReplySaveRequestDto;
+import com.cos.blog.dto.saveReplyDto.saveReplyReqDto;
 import com.cos.blog.dto.ResponseDto;
 import com.cos.blog.dto.saveBoardDTO.SaveBoardReqDTO;
 import com.cos.blog.model.Board;
@@ -40,7 +40,7 @@ public class BoardApiController {
     }
 
     @PostMapping("/api/board/{boardId}/reply")
-    public ResponseDto<Integer> replySave(@RequestBody ReplySaveRequestDto replySaveRequestDto) {
+    public ResponseDto<Integer> replySave(@RequestBody saveReplyReqDto replySaveRequestDto) {
         boardService.댓글쓰기(replySaveRequestDto);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }

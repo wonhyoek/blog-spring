@@ -1,7 +1,7 @@
 package com.cos.blog.service;
 
 import com.cos.blog.dto.saveBoardDTO.SaveBoardReqDTO;
-import com.cos.blog.dto.saveBoardDTO.SaveBoardResDTO;
+import com.cos.blog.dto.boardResDTO;
 import com.cos.blog.model.Board;
 import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
@@ -52,7 +52,7 @@ public class BoardServiceTest {
         when(boardRepository.save(any())).thenReturn(board);
 
         //when
-        SaveBoardResDTO resDTO = boardService.글쓰기(reqDTO,user);
+        boardResDTO resDTO = boardService.글쓰기(reqDTO,user);
 
         //then
         System.out.println(resDTO.getTitle());

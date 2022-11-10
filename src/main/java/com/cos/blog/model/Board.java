@@ -1,6 +1,6 @@
 package com.cos.blog.model;
 
-import com.cos.blog.dto.saveBoardDTO.SaveBoardResDTO;
+import com.cos.blog.dto.boardResDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,8 +41,8 @@ public class Board {
     @CreationTimestamp
     private Timestamp createDate;
 
-    public SaveBoardResDTO toSaveDTO(){
-        return SaveBoardResDTO
+    public boardResDTO toSaveDTO(){
+        return boardResDTO
                 .builder()
                 .id(this.id)
                 .title(this.title)
