@@ -107,16 +107,58 @@ public class BoardServiceTest {
 
         //stub
         doReturn(boardOP).when(boardRepository).findById(id);
-        //doThrow(new Exception) 못 찾는 상황에서 사용
+        //doThrow(new Exception) 못 찾는 시나리오에서 사용
 
         //when
         BoardResDTO resDTO = boardService.글상세보기(id);
 
         //then
-        System.out.println(title);
-        System.out.println(content);
         assertThat(resDTO.getId()).isEqualTo(id);
         assertThat(resDTO.getTitle()).isEqualTo(title);
         assertThat(resDTO.getContent()).isEqualTo(content);
     }
+
+    @Test
+    public void deleteBoard(){
+        //given
+        int id = 1;
+        //stub
+
+        //when
+        int resId = boardService.글삭제하기(id);
+        //then
+        assertThat(resId).isEqualTo(resId);
+    }
+
+    @Test
+    public void updateBoard(){
+        //given
+        String title = "good";
+        String content = "good test";
+        int id = 1;
+        Board board = Board.builder().id(id).title(title).content(content).build();
+        Optional<Board> boardOP = Optional.of(board);
+
+        SaveBoardReqDTO reqDTO = new SaveBoardReqDTO();
+        reqDTO.setTitle("title");
+        reqDTO.setContent("content");
+        //stub
+        doReturn(boardOP).when(boardRepository).findById(id);
+
+        //when
+        BoardResDTO resDTO = boardService.글수정하기(id, reqDTO);
+
+        //then
+        System.out.println(resDTO.getTitle());
+        System.out.println(resDTO.getContent());
+        assertThat(resDTO.getTitle()).isEqualTo("title");
+        assertThat(resDTO.getContent()).isEqualTo("content");
+    }
 }
+//given
+
+//stub
+
+//when
+
+//then

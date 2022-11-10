@@ -64,13 +64,15 @@ public class BoardService {
     }
 
     @Transactional
-    public void 글수정하기(int id, Board requestBoard) {
-        Board board = boardRepository.findById(id)
+    public BoardResDTO 글수정하기(int id, SaveBoardReqDTO reqDTO) {
+        Board boardPS = boardRepository.findById(id)
                 .orElseThrow(()->{
                     return new IllegalArgumentException("글 찾기 실패 : 아이디를 찾을 수 없습니다.");
                 });
-        board.setTitle(requestBoard.getTitle());
-        board.setContent(requestBoard.getContent());
+        boardPS.setTitle(reqDTO.getTitle());
+        boardPS.setContent(reqDTO.getContent());
+
+        return boardPS.toResDTO();
     }
 
     @Transactional
