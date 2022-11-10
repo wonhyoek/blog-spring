@@ -3,6 +3,7 @@ package com.cos.blog.controller.api;
 import com.cos.blog.config.auth.PrincipalDetail;
 import com.cos.blog.dto.ReplySaveRequestDto;
 import com.cos.blog.dto.ResponseDto;
+import com.cos.blog.dto.saveBoardDTO.SaveBoardReqDTO;
 import com.cos.blog.model.Board;
 import com.cos.blog.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ public class BoardApiController {
     private BoardService boardService;
 
     @PostMapping("/api/board")
-    public ResponseDto<Integer> save(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principal) {
-        boardService.글쓰기(board, principal.getUser());
+    public ResponseDto<Integer> save(@RequestBody SaveBoardReqDTO reqDTO, @AuthenticationPrincipal PrincipalDetail principal) {
+        boardService.글쓰기(reqDTO, principal.getUser());
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
