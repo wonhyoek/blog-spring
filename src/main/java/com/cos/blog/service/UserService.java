@@ -42,20 +42,12 @@ public class UserService {
         User userPS = userRepository.findById(reqDTO.getId()).orElseThrow(()->{
             return new IllegalArgumentException("회원 찾기 실패");
         });
-        User updatedUserPS = this.setNewDataInUser(userPS, reqDTO);
+        User updatedUserPS = userPS.setNewDataInUser(encoder, reqDTO);
 
         return updatedUserPS.getEmail();
 
     }
-    private User setNewDataInUser(User userPS, UpdateUserReqDTO reqDTO){
-        if(userPS.getOauth() == null || userPS.getOauth().equals("")) {
-            String rawPassword = reqDTO.getPassword();
-            String encPassword = encoder.encode(rawPassword);
-            userPS.setPassword(encPassword);
-            userPS.setEmail(reqDTO.getEmail());
-        }
-        return userPS;
-    }
+
 
     @Transactional(readOnly = true)
     public User 회원찾기(String username) {
