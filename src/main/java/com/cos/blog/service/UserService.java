@@ -1,6 +1,7 @@
 package com.cos.blog.service;
 
 import com.cos.blog.dto.SaveUserReqDTO;
+import com.cos.blog.dto.UpdateUserReqDTO;
 import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.UserRepository;
@@ -36,20 +37,26 @@ public class UserService {
     }
 
     @Transactional
-    public void 회원수정(User user) {
+    public String 회원수정(UpdateUserReqDTO reqDTO) {
 
-        User persistance = userRepository.findById(user.getId()).orElseThrow(()->{
+        User userPS = userRepository.findById(reqDTO.getId()).orElseThrow(()->{
             return new IllegalArgumentException("회원 찾기 실패");
         });
+        User updatedUserPS = this.setNewDataInUser(userPS, reqDTO);
 
+        return updatedUserPS.getEmail();
 
-        if(persistance.getOauth() == null || persistance.getOauth().equals("")) {
-            String rawPassword = user.getPassword();
-            String encPassword = encoder.encode(rawPassword);
-            persistance.setPassword(encPassword);
-            persistance.setEmail(user.getEmail());
-        }
     }
+    private User setNewDataInUser(User userPS, UpdateUserReqDTO reqDTO){
+        if(userPS.getOauth() == null || userPS.getOauth().equals("")) {
+            String rawPassword = reqDTO.getPassword();
+            String encPassword = encoder.encode(rawPassword);
+            userPS.setPassword(encPassword);
+            userPS.setEmail(reqDTO.getEmail());
+        }
+        return userPS;
+    }
+
     @Transactional(readOnly = true)
     public User 회원찾기(String username) {
         User user = userRepository.findByUsername(username).orElseGet(()->{
