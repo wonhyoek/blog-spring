@@ -96,6 +96,33 @@ public class UserServiceTest {
         System.out.println(updatedEmail);
         assertThat(updatedEmail).isEqualTo(reqDTO.getEmail());
     }
+
+    @Test
+    public void findUser(){
+        //given
+        String username = "콩순이";
+        String email = "a@a.com";
+        String password = "asdf";
+
+        User user = User
+                .builder()
+                .password(password)
+                .email(email)
+                .username(username)
+                .roleType(RoleType.USER)
+                .build();
+        Optional<User> userOP = Optional.of(user);
+
+        //stub
+        doReturn(userOP).when(userRepository).findByUsername(username);
+
+        //when
+        String resUsername = userService.회원찾기(username);
+
+        //then
+        System.out.println(resUsername);
+        assertThat(resUsername).isEqualTo(username);
+    }
 }
     //given
 

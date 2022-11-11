@@ -130,9 +130,9 @@ public class UserController {
         reqDTO.setPassword(kakaoUser.getPassword());
         reqDTO.setEmail(kakaoUser.getEmail());
 
-        User originUser = userService.회원찾기(kakaoUser.getUsername());
+        String username = userService.회원찾기(kakaoUser.getUsername());
 
-        if(originUser.getUsername() == null) {
+        if(username == null) {
             System.out.println("기존 회원이 아니기에 자동 회원가입을 진행합니다");
             userService.회원가입(reqDTO);
         }
