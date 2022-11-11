@@ -1,6 +1,7 @@
 package com.cos.blog.controller.api;
 
 import com.cos.blog.config.auth.PrincipalDetail;
+import com.cos.blog.dto.BoardResDTO;
 import com.cos.blog.dto.SaveReplyReqDto;
 import com.cos.blog.dto.ResponseDto;
 import com.cos.blog.dto.SaveBoardReqDTO;
@@ -18,9 +19,9 @@ public class BoardApiController {
     private BoardService boardService;
 
     @PostMapping("/api/board")
-    public ResponseDto<Integer> save(@RequestBody SaveBoardReqDTO reqDTO, @AuthenticationPrincipal PrincipalDetail principal) {
-        boardService.글쓰기(reqDTO, principal.getUser());
-        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+    public ResponseDto<BoardResDTO> save(@RequestBody SaveBoardReqDTO reqDTO, @AuthenticationPrincipal PrincipalDetail principal) {
+        BoardResDTO resDTO = boardService.글쓰기(reqDTO, principal.getUser());
+        return new ResponseDto<BoardResDTO>(HttpStatus.OK.value(), resDTO);
     }
 
     @DeleteMapping("/api/board/{id}")
