@@ -40,8 +40,8 @@ public class BoardApiController {
 
     @PostMapping("/api/board/{boardId}/reply")
     public ResponseDto<Integer> replySave(@RequestBody SaveReplyReqDto reqDto) {
-        boardService.댓글쓰기(reqDto);
-        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+        int rowCount = boardService.댓글쓰기(reqDto);
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), rowCount);
     }
 
     @DeleteMapping("/api/board/{boardId}/reply/{replyId}")

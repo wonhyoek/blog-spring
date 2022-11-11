@@ -6,6 +6,7 @@ import com.cos.blog.controller.api.BoardApiController;
 import com.cos.blog.dto.BoardResDTO;
 import com.cos.blog.dto.ResponseDto;
 import com.cos.blog.dto.SaveBoardReqDTO;
+import com.cos.blog.dto.SaveReplyReqDto;
 import com.cos.blog.model.User;
 import com.cos.blog.service.BoardService;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import javax.persistence.criteria.CriteriaBuilder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -103,7 +106,27 @@ public class BoardControllerTest {
    }
 
    @Test
-   public void  
+   public void replySave(){
+       //given
+       int userId = 1;
+       int boardId = 1;
+       String content = "good reply";
+
+       SaveReplyReqDto reqDto = new SaveReplyReqDto();
+       reqDto.setBoardId(boardId);
+       reqDto.setUserId(userId);
+       reqDto.setContent(content);
+
+       int rowCount = 1;
+       //stub
+        doReturn(rowCount).when(boardService).댓글쓰기(reqDto);
+       //when
+        ResponseDto<Integer> responseDto = boardApiController.replySave(reqDto);
+       //then
+       System.out.println(responseDto.getData());
+       assertThat(responseDto.getData()).isEqualTo(rowCount);
+   }
+   
 
 }
 
