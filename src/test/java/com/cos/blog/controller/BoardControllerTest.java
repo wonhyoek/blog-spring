@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
 
@@ -57,6 +58,52 @@ public class BoardControllerTest {
        System.out.println(responseDto.getData().getTitle());
        assertThat(responseDto.getData().getTitle()).isEqualTo("good");
    }
+
+   @Test
+    public void deleteBoard(){
+       //given
+        int id = 1;
+       //stub
+        doReturn(id).when(boardService).글삭제하기(id);
+       //when
+        ResponseDto<Integer> responseDto = boardApiController.deleteById(id);
+       //then
+       System.out.println(responseDto.getData());
+       assertThat(responseDto.getData()).isEqualTo(id);
+   }
+
+   @Test
+   public void update(){
+       //given
+        int id = 1;
+        String title = "good";
+        String content = "good testttttttttttttttttttt";
+
+        SaveBoardReqDTO reqDTO = new SaveBoardReqDTO();
+        reqDTO.setTitle(title);
+        reqDTO.setContent(content);
+
+        BoardResDTO resDTO = BoardResDTO
+                .builder()
+                .title(title)
+                .content(content)
+                .build();
+
+       //stub
+       doReturn(resDTO).when(boardService).글수정하기(id, reqDTO);
+
+       //when
+       ResponseDto<BoardResDTO> responseDto = boardApiController.update(id, reqDTO);
+
+       //then
+       System.out.println(responseDto.getData().getTitle());
+       System.out.println(responseDto.getData().getContent());
+       assertThat(responseDto.getData().getTitle()).isEqualTo(title);
+       assertThat(responseDto.getData().getContent()).isEqualTo(content);
+   }
+
+   @Test
+   public void  
 
 }
 
