@@ -1,4 +1,4 @@
-package com.cos.blog.dto.saveBoardDTO;
+package com.cos.blog.dto;
 
 import lombok.Builder;
 import lombok.Getter;

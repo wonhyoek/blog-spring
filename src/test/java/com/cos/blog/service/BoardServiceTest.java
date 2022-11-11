@@ -1,9 +1,9 @@
 package com.cos.blog.service;
 
 import com.cos.blog.dto.BoardListWrapperDTO;
-import com.cos.blog.dto.saveBoardDTO.SaveBoardReqDTO;
+import com.cos.blog.dto.SaveBoardReqDTO;
 import com.cos.blog.dto.BoardResDTO;
-import com.cos.blog.dto.saveReplyDto.SaveReplyReqDto;
+import com.cos.blog.dto.SaveReplyReqDto;
 import com.cos.blog.model.Board;
 import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
