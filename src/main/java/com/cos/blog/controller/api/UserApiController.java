@@ -1,6 +1,7 @@
 package com.cos.blog.controller.api;
 
 import com.cos.blog.dto.ResponseDto;
+import com.cos.blog.dto.SaveUserReqDTO;
 import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
 import com.cos.blog.service.UserService;
@@ -28,10 +29,9 @@ public class UserApiController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/auth/joinProc")
-    public ResponseDto<Integer> save(@RequestBody User user){
-        System.out.println("save 호출");
-        User result = userService.회원가입(user);
-        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+    public ResponseDto<String> save(@RequestBody SaveUserReqDTO reqDTO){
+        String username = userService.회원가입(reqDTO);
+        return new ResponseDto<String>(HttpStatus.OK.value(), username);
     }
 
     @PutMapping("/user")

@@ -1,5 +1,6 @@
 package com.cos.blog.service;
 
+import com.cos.blog.dto.SaveUserReqDTO;
 import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.UserRepository;
@@ -18,12 +19,20 @@ public class UserService {
     private BCryptPasswordEncoder encoder;
 
     @Transactional
-    public User 회원가입(User user){
-        String rawPassword = user.getPassword();
+    public String 회원가입(SaveUserReqDTO reqDTO){
+        String rawPassword = reqDTO.getPassword();
         String encPassword = encoder.encode(rawPassword);
-        user.setPassword(encPassword);
-        user.setRoleType(RoleType.USER);
-        return userRepository.save(user);
+
+        User user = User
+                .builder()
+                .username(reqDTO.getUsername())
+                .password(encPassword)
+                .email(reqDTO.getEmail())
+                .roleType(RoleType.USER)
+                .build();
+
+        User userPS = userRepository.save(user);
+        return userPS.getUsername();
     }
 
     @Transactional
