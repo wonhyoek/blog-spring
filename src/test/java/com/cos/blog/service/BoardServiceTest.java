@@ -183,7 +183,18 @@ public class BoardServiceTest {
         assertThat(resCount).isEqualTo(count);
     }
 
-    
+    @Test
+    public void deleteReply(){
+        //given
+        int reqId = 1;
+        //stub
+
+        //when
+        int resId = boardService.글삭제하기(reqId);
+        //then
+        System.out.println(resId);
+        assertThat(resId).isEqualTo(reqId);
+    }
 }
 //given
 
