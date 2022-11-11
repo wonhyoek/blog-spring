@@ -1,9 +1,9 @@
 package com.cos.blog.controller.api;
 
 import com.cos.blog.config.auth.PrincipalDetail;
-import com.cos.blog.dto.ReplySaveRequestDto;
+import com.cos.blog.dto.saveReplyDto.SaveReplyReqDto;
 import com.cos.blog.dto.ResponseDto;
-import com.cos.blog.model.Board;
+import com.cos.blog.dto.saveBoardDTO.SaveBoardReqDTO;
 import com.cos.blog.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +18,8 @@ public class BoardApiController {
     private BoardService boardService;
 
     @PostMapping("/api/board")
-    public ResponseDto<Integer> save(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principal) {
-        boardService.글쓰기(board, principal.getUser());
+    public ResponseDto<Integer> save(@RequestBody SaveBoardReqDTO reqDTO, @AuthenticationPrincipal PrincipalDetail principal) {
+        boardService.글쓰기(reqDTO, principal.getUser());
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
@@ -30,16 +30,16 @@ public class BoardApiController {
     }
 
     @PutMapping("/api/board/{id}")
-    public ResponseDto<Integer> update(@PathVariable int id, @RequestBody Board board){
+    public ResponseDto<Integer> update(@PathVariable int id, @RequestBody SaveBoardReqDTO reqDTO){
         System.out.println("BoardApiController : update : id : "+id);
-        System.out.println("BoardApiController : update : board : "+board.getTitle());
-        System.out.println("BoardApiController : update : board : "+board.getContent());
-        boardService.글수정하기(id, board);
+        System.out.println("BoardApiController : update : board : "+reqDTO.getTitle());
+        System.out.println("BoardApiController : update : board : "+reqDTO.getContent());
+        boardService.글수정하기(id, reqDTO);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
     @PostMapping("/api/board/{boardId}/reply")
-    public ResponseDto<Integer> replySave(@RequestBody ReplySaveRequestDto replySaveRequestDto) {
+    public ResponseDto<Integer> replySave(@RequestBody SaveReplyReqDto replySaveRequestDto) {
         boardService.댓글쓰기(replySaveRequestDto);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
