@@ -1,11 +1,9 @@
 package com.cos.blog.controller.api;
 
 import com.cos.blog.config.auth.PrincipalDetail;
-import com.cos.blog.dto.BoardResDTO;
-import com.cos.blog.dto.saveReplyDto.saveReplyReqDto;
+import com.cos.blog.dto.saveReplyDto.SaveReplyReqDto;
 import com.cos.blog.dto.ResponseDto;
 import com.cos.blog.dto.saveBoardDTO.SaveBoardReqDTO;
-import com.cos.blog.model.Board;
 import com.cos.blog.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,7 +39,7 @@ public class BoardApiController {
     }
 
     @PostMapping("/api/board/{boardId}/reply")
-    public ResponseDto<Integer> replySave(@RequestBody saveReplyReqDto replySaveRequestDto) {
+    public ResponseDto<Integer> replySave(@RequestBody SaveReplyReqDto replySaveRequestDto) {
         boardService.댓글쓰기(replySaveRequestDto);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }

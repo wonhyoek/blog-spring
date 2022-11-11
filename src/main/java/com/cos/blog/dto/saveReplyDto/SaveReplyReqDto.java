@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class saveReplyReqDto {
+public class SaveReplyReqDto {
     private int userId;
     private int boardId;
     private String content;

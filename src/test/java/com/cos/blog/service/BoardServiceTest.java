@@ -3,10 +3,12 @@ package com.cos.blog.service;
 import com.cos.blog.dto.BoardListWrapperDTO;
 import com.cos.blog.dto.saveBoardDTO.SaveBoardReqDTO;
 import com.cos.blog.dto.BoardResDTO;
+import com.cos.blog.dto.saveReplyDto.SaveReplyReqDto;
 import com.cos.blog.model.Board;
 import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.BoardRepository;
+import com.cos.blog.repository.ReplyRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,6 +31,8 @@ public class BoardServiceTest {
     private BoardService boardService;
     @Mock
     private BoardRepository boardRepository;
+    @Mock
+    private ReplyRepository replyRepository;
 
 
     @Test
@@ -154,6 +158,32 @@ public class BoardServiceTest {
         assertThat(resDTO.getTitle()).isEqualTo("title");
         assertThat(resDTO.getContent()).isEqualTo("content");
     }
+
+    @Test
+    public void createReply(){
+        //given
+        int id = 1;
+        int count = 200;
+        SaveReplyReqDto reqDto = new SaveReplyReqDto();
+        int userId = 1;
+        int boardId = 1;
+        String content = "good";
+        reqDto.setBoardId(boardId);
+        reqDto.setUserId(userId);
+        reqDto.setContent(content);
+
+        //stub
+        doReturn(count).when(replyRepository).mSave(userId, boardId, content);
+
+        //when
+        int resCount = boardService.댓글쓰기(reqDto);
+
+        //then
+        System.out.println(resCount);
+        assertThat(resCount).isEqualTo(count);
+    }
+
+    
 }
 //given
 

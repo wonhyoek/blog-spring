@@ -1,7 +1,7 @@
 package com.cos.blog.service;
 
 import com.cos.blog.dto.BoardListWrapperDTO;
-import com.cos.blog.dto.saveReplyDto.saveReplyReqDto;
+import com.cos.blog.dto.saveReplyDto.SaveReplyReqDto;
 import com.cos.blog.dto.saveBoardDTO.SaveBoardReqDTO;
 import com.cos.blog.dto.BoardResDTO;
 import com.cos.blog.model.Board;
@@ -13,8 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 
 @Service
@@ -76,13 +74,18 @@ public class BoardService {
     }
 
     @Transactional
-    public void 댓글쓰기(saveReplyReqDto replySaveRequestDto) {
-        int result = replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
-        System.out.println("BoardService : "+result);
+    public int 댓글쓰기(SaveReplyReqDto replySaveRequestDto) {
+        int rowCount = replyRepository.mSave(
+                replySaveRequestDto.getUserId(),
+                replySaveRequestDto.getBoardId(),
+                replySaveRequestDto.getContent()
+        );
+        return rowCount;
     }
 
     @Transactional
-    public void 댓글삭제(int replyId) {
+    public int 댓글삭제(int replyId) {
         replyRepository.deleteById(replyId);
+        return replyId;
     }
 }
