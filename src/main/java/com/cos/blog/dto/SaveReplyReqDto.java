@@ -1,4 +1,4 @@
-package com.cos.blog.dto.saveReplyDto;
+package com.cos.blog.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

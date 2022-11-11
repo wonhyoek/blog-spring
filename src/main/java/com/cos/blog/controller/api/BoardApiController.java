@@ -1,9 +1,9 @@
 package com.cos.blog.controller.api;
 
 import com.cos.blog.config.auth.PrincipalDetail;
-import com.cos.blog.dto.saveReplyDto.SaveReplyReqDto;
+import com.cos.blog.dto.SaveReplyReqDto;
 import com.cos.blog.dto.ResponseDto;
-import com.cos.blog.dto.saveBoardDTO.SaveBoardReqDTO;
+import com.cos.blog.dto.SaveBoardReqDTO;
 import com.cos.blog.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

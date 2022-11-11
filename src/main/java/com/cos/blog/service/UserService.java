@@ -1,5 +1,7 @@
 package com.cos.blog.service;
 
+import com.cos.blog.dto.SaveUserReqDTO;
+import com.cos.blog.dto.UpdateUserReqDTO;
 import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.UserRepository;
@@ -18,34 +20,40 @@ public class UserService {
     private BCryptPasswordEncoder encoder;
 
     @Transactional
-    public User 회원가입(User user){
-        String rawPassword = user.getPassword();
+    public String 회원가입(SaveUserReqDTO reqDTO){
+        String rawPassword = reqDTO.getPassword();
         String encPassword = encoder.encode(rawPassword);
-        user.setPassword(encPassword);
-        user.setRoleType(RoleType.USER);
-        return userRepository.save(user);
+
+        User user = User
+                .builder()
+                .username(reqDTO.getUsername())
+                .password(encPassword)
+                .email(reqDTO.getEmail())
+                .roleType(RoleType.USER)
+                .build();
+
+        User userPS = userRepository.save(user);
+        return userPS.getUsername();
     }
 
     @Transactional
-    public void 회원수정(User user) {
+    public String 회원수정(UpdateUserReqDTO reqDTO) {
 
-        User persistance = userRepository.findById(user.getId()).orElseThrow(()->{
+        User userPS = userRepository.findById(reqDTO.getId()).orElseThrow(()->{
             return new IllegalArgumentException("회원 찾기 실패");
         });
+        User updatedUserPS = userPS.setNewDataInUser(encoder, reqDTO);
 
+        return updatedUserPS.getEmail();
 
-        if(persistance.getOauth() == null || persistance.getOauth().equals("")) {
-            String rawPassword = user.getPassword();
-            String encPassword = encoder.encode(rawPassword);
-            persistance.setPassword(encPassword);
-            persistance.setEmail(user.getEmail());
-        }
     }
+
+
     @Transactional(readOnly = true)
-    public User 회원찾기(String username) {
-        User user = userRepository.findByUsername(username).orElseGet(()->{
+    public String 회원찾기(String username) {
+        User userPS = userRepository.findByUsername(username).orElseGet(()->{
             return new User();
         });
-        return user;
+        return userPS.getUsername();
     }
 }

@@ -1,5 +1,6 @@
 package com.cos.blog.controller;
 
+import com.cos.blog.dto.SaveUserReqDTO;
 import com.cos.blog.model.OAuthToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -124,11 +125,16 @@ public class UserController {
                 .oauth("kakao")
                 .build();
 
-        User originUser = userService.회원찾기(kakaoUser.getUsername());
+        SaveUserReqDTO reqDTO = new SaveUserReqDTO();
+        reqDTO.setUsername(kakaoUser.getUsername());
+        reqDTO.setPassword(kakaoUser.getPassword());
+        reqDTO.setEmail(kakaoUser.getEmail());
 
-        if(originUser.getUsername() == null) {
+        String username = userService.회원찾기(kakaoUser.getUsername());
+
+        if(username == null) {
             System.out.println("기존 회원이 아니기에 자동 회원가입을 진행합니다");
-            userService.회원가입(kakaoUser);
+            userService.회원가입(reqDTO);
         }
 
         System.out.println("자동 로그인을 진행합니다.");
