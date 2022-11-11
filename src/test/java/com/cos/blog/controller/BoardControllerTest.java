@@ -126,7 +126,19 @@ public class BoardControllerTest {
        System.out.println(responseDto.getData());
        assertThat(responseDto.getData()).isEqualTo(rowCount);
    }
-   
+
+   @Test
+    public void replyDelete(){
+       //given
+        int replyId = 1;
+       //stub
+        doReturn(replyId).when(boardService).댓글삭제(replyId);
+       //when
+        ResponseDto<Integer> responseDto = boardApiController.replyDelete(replyId);
+       //then
+       System.out.println(responseDto.getData());
+       assertThat(responseDto.getData()).isEqualTo(replyId);
+   }
 
 }
 
