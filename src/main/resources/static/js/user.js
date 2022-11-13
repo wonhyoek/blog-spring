@@ -20,7 +20,7 @@ let index = {
 
 			$.ajax({
 				type: "POST",
-				url: "/auth/joinProc",
+				url: "/auth/join-proc",
 				data: JSON.stringify(data),
 				contentType: "application/json; charset=utf-8",
 				dataType: "json"

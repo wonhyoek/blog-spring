@@ -29,7 +29,7 @@ public class UserApiController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @PostMapping("/auth/joinProc")
+    @PostMapping("/auth/join-proc")
     public ResponseDto<String> save(@RequestBody SaveUserReqDTO reqDTO){
         String username = userService.회원가입(reqDTO);
         return new ResponseDto<String>(HttpStatus.OK.value(), username);
