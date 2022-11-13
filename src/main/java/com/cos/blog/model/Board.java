@@ -45,6 +45,8 @@ public class Board {
         return BoardResDTO
                 .builder()
                 .id(this.id)
+                .user(this.user)
+                .reply(this.reply)
                 .title(this.title)
                 .content(this.content)
                 .build();
