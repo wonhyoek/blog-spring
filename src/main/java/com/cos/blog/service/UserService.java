@@ -50,7 +50,7 @@ public class UserService {
 
 
     @Transactional(readOnly = true)
-    public String getUsername(String username) {
+    public String findUserByUsername(String username) {
         User userPS = userRepository.findByUsername(username).orElseGet(()->{
             return new User();
         });
