@@ -24,7 +24,7 @@ public class BoardController {
     private BoardService boardService;
     @GetMapping({"", "/"})
     public String index(Model model, @PageableDefault(size=3, sort="id", direction = Sort.Direction.DESC) Pageable pageable) {
-        BoardListWrapperDTO wrapperDTO = boardService.글목록(pageable);
+        BoardListWrapperDTO wrapperDTO = boardService.getBoardList(pageable);
         Page<Board> boards = wrapperDTO.getItems();
         model.addAttribute("boards", boards);
         return "index"; // viewResolver 작동!!
@@ -32,7 +32,7 @@ public class BoardController {
 
     @GetMapping("/board/{id}")
     public String findById(@PathVariable int id, Model model) {
-        BoardResDTO board = boardService.글상세보기(id);
+        BoardResDTO board = boardService.getBoardDetailById(id);
         model.addAttribute("board", board);
 
         return "board/detail";
@@ -40,7 +40,7 @@ public class BoardController {
 
     @GetMapping("/board/{id}/updateForm")
     public String updateForm(@PathVariable int id, Model model) {
-        model.addAttribute("board", boardService.글상세보기(id));
+        model.addAttribute("board", boardService.modifyBoard(id));
         return "board/updateForm";
     }
 
