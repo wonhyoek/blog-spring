@@ -31,13 +31,13 @@ public class UserApiController {
 
     @PostMapping("/auth/join-proc")
     public ResponseDto<String> save(@RequestBody SaveUserReqDTO reqDTO){
-        String username = userService.회원가입(reqDTO);
+        String username = userService.registUser(reqDTO);
         return new ResponseDto<String>(HttpStatus.OK.value(), username);
     }
 
     @PutMapping("/user")
     public ResponseDto<String> update(@RequestBody UpdateUserReqDTO reqDTO) { // key=value, x-www-form-urlencoded
-        String updatedEmail = userService.회원수정(reqDTO);
+        String updatedEmail = userService.modifyUser(reqDTO);
 
         Authentication authentication = authenticationManager
                 .authenticate(
