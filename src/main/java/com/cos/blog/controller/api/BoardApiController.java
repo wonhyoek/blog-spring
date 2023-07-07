@@ -21,32 +21,32 @@ public class BoardApiController {
     private BoardService boardService;
 
     @PostMapping("/api/board")
-    public ResponseDto<BoardResDTO> save(@RequestBody SaveBoardReqDTO reqDTO, @AuthenticationPrincipal PrincipalDetail principal) {
-        BoardResDTO resDTO = boardService.글쓰기(reqDTO, principal.getUser());
+    public ResponseDto<BoardResDTO> createBoard(@RequestBody SaveBoardReqDTO reqDTO, @AuthenticationPrincipal PrincipalDetail principal) {
+        BoardResDTO resDTO = boardService.createBoard(reqDTO, principal.getUser());
         return new ResponseDto<BoardResDTO>(HttpStatus.OK.value(), resDTO);
     }
 
     @DeleteMapping("/api/board/{id}")
-    public ResponseDto<Integer> deleteById(@PathVariable int id){
-        int deletedId = boardService.글삭제하기(id);
+    public ResponseDto<Integer> deleteBoard(@PathVariable int id){
+        int deletedId = boardService.deleteBoardById(id);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), deletedId);
     }
 
     @PutMapping("/api/board/{id}")
-    public ResponseDto<BoardResDTO> update(@PathVariable int id, @Valid @RequestBody SaveBoardReqDTO reqDTO){
-        BoardResDTO resDTO = boardService.글수정하기(id, reqDTO);
+    public ResponseDto<BoardResDTO> modifyBoard(@PathVariable int id, @Valid @RequestBody SaveBoardReqDTO reqDTO){
+        BoardResDTO resDTO = boardService.modifyBoard(id, reqDTO);
         return new ResponseDto<BoardResDTO>(HttpStatus.OK.value(), resDTO);
     }
 
     @PostMapping("/api/board/{boardId}/reply")
-    public ResponseDto<Integer> replySave(@RequestBody SaveReplyReqDto reqDto) {
-        int rowCount = boardService.댓글쓰기(reqDto);
+    public ResponseDto<Integer> createReply(@RequestBody SaveReplyReqDto reqDto) {
+        int rowCount = boardService.modifyBoard(reqDto);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), rowCount);
     }
 
     @DeleteMapping("/api/board/{boardId}/reply/{replyId}")
-    public ResponseDto<Integer> replyDelete(@PathVariable int replyId) {
-        int resReplyId = boardService.댓글삭제(replyId);
+    public ResponseDto<Integer> deleteReply(@PathVariable int replyId) {
+        int resReplyId = boardService.deleteReply(replyId);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), resReplyId);
     }
 
