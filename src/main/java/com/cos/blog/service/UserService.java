@@ -20,7 +20,7 @@ public class UserService {
     private BCryptPasswordEncoder encoder;
 
     @Transactional
-    public String 회원가입(SaveUserReqDTO reqDTO){
+    public String registUser(SaveUserReqDTO reqDTO){
         String rawPassword = reqDTO.getPassword();
         String encPassword = encoder.encode(rawPassword);
 
@@ -37,7 +37,7 @@ public class UserService {
     }
 
     @Transactional
-    public String 회원수정(UpdateUserReqDTO reqDTO) {
+    public String modifyUser(UpdateUserReqDTO reqDTO) {
 
         User userPS = userRepository.findById(reqDTO.getId()).orElseThrow(()->{
             return new IllegalArgumentException("회원 찾기 실패");
@@ -50,7 +50,7 @@ public class UserService {
 
 
     @Transactional(readOnly = true)
-    public String 회원찾기(String username) {
+    public String getUsername(String username) {
         User userPS = userRepository.findByUsername(username).orElseGet(()->{
             return new User();
         });
