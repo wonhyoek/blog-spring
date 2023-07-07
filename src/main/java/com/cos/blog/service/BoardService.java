@@ -22,7 +22,7 @@ public class BoardService {
     private final ReplyRepository replyRepository;
 
     @Transactional
-    public BoardResDTO 글쓰기(SaveBoardReqDTO reqDTO, User user) {
+    public BoardResDTO createBoard(SaveBoardReqDTO reqDTO, User user) {
         Board board = Board.builder()
                 .title(reqDTO.getTitle())
                 .content(reqDTO.getContent())
@@ -36,7 +36,7 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public BoardListWrapperDTO 글목록(Pageable pageable){
+    public BoardListWrapperDTO getBoardList(Pageable pageable){
 
         Page<Board> boardsPS = boardRepository.findAll(pageable);
         BoardListWrapperDTO boardListWrapperDTO = new BoardListWrapperDTO();
@@ -46,7 +46,7 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public BoardResDTO 글상세보기(int id) {
+    public BoardResDTO getBoardDetailById(int id) {
         Board boardPS = boardRepository.findById(id)
                 .orElseThrow(()->{
                     return new IllegalArgumentException("글 상세보기 실패 : 아이디를 찾을 수 없습니다.");
@@ -56,13 +56,13 @@ public class BoardService {
     }
 
     @Transactional
-    public int 글삭제하기(int id) {
+    public int deleteBoardById(int id) {
         boardRepository.deleteById(id);
         return id;
     }
 
     @Transactional
-    public BoardResDTO 글수정하기(int id, SaveBoardReqDTO reqDTO) {
+    public BoardResDTO modifyBoard(int id, SaveBoardReqDTO reqDTO) {
         Board boardPS = boardRepository.findById(id)
                 .orElseThrow(()->{
                     return new IllegalArgumentException("글 찾기 실패 : 아이디를 찾을 수 없습니다.");
@@ -74,7 +74,7 @@ public class BoardService {
     }
 
     @Transactional
-    public int 댓글쓰기(SaveReplyReqDto replySaveRequestDto) {
+    public int createReply(SaveReplyReqDto replySaveRequestDto) {
         int rowCount = replyRepository.mSave(
                 replySaveRequestDto.getUserId(),
                 replySaveRequestDto.getBoardId(),
@@ -84,7 +84,7 @@ public class BoardService {
     }
 
     @Transactional
-    public int 댓글삭제(int replyId) {
+    public int deleteReply(int replyId) {
         replyRepository.deleteById(replyId);
         return replyId;
     }
